@@ -1,16 +1,14 @@
-import PropTypes from 'prop-types';
 import { nanoid } from 'nanoid';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { Form, Btn } from './PhonebookForm.styled';
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { addContact } from 'redux/contactsSlice';
 
 export const PhonebookForm = () => {
   const dispatch = useDispatch();
 
-  const contacts = useSelector(state => state.contacts);
+  const contacts = useSelector(state => state.contacts.value);
 
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
@@ -85,15 +83,4 @@ export const PhonebookForm = () => {
       <Btn type="submit">Add contact</Btn>
     </Form>
   );
-};
-
-PhonebookForm.propTypes = {
-  addContact: PropTypes.func,
-  contacts: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      number: PropTypes.string.isRequired,
-    })
-  ),
 };

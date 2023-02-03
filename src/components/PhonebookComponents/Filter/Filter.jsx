@@ -1,4 +1,3 @@
-// import PropTypes from 'prop-types';
 import { FilterInput, FilterWrapper, Btn } from './Filter.styled';
 import { useDispatch } from 'react-redux';
 import { changeFilter } from 'redux/filterSlice';
@@ -6,6 +5,7 @@ import { useSelector } from 'react-redux';
 
 export const Filter = () => {
   const filter = useSelector(state => state.filter);
+
   const dispatch = useDispatch();
 
   const handleFilterChange = event => {
@@ -36,9 +36,3 @@ export const Filter = () => {
     </>
   );
 };
-
-// Filter.propTypes = {
-//   onChange: PropTypes.func.isRequired,
-//   onClick: PropTypes.func.isRequired,
-//   value: PropTypes.string,
-// };
