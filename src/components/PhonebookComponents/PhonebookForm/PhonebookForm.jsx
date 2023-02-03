@@ -3,8 +3,15 @@ import { nanoid } from 'nanoid';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { Form, Btn } from './PhonebookForm.styled';
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { addContact } from 'redux/contactsSlice';
 
-export const PhonebookForm = ({ contacts, addContact }) => {
+export const PhonebookForm = () => {
+  const dispatch = useDispatch();
+
+  const contacts = useSelector(state => state.contacts);
+
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
@@ -42,7 +49,7 @@ export const PhonebookForm = ({ contacts, addContact }) => {
         Notify.failure(`${contact.name} is already in contacts`);
         break;
       default:
-        addContact(contact);
+        dispatch(addContact(contact));
     }
 
     resetForm();

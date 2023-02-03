@@ -1,7 +1,22 @@
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { FilterInput, FilterWrapper, Btn } from './Filter.styled';
+import { useDispatch } from 'react-redux';
+import { changeFilter } from 'redux/filterSlice';
+import { useSelector } from 'react-redux';
 
-export const Filter = ({ onChange, value, onClick }) => {
+export const Filter = () => {
+  const filter = useSelector(state => state.filter);
+  const dispatch = useDispatch();
+
+  const handleFilterChange = event => {
+    const { value } = event.currentTarget;
+    dispatch(changeFilter(value));
+  };
+
+  const clearFilterField = () => {
+    dispatch(changeFilter(''));
+  };
+
   return (
     <>
       <FilterWrapper>
@@ -10,11 +25,11 @@ export const Filter = ({ onChange, value, onClick }) => {
             type="text"
             id="filter"
             name="filter"
-            value={value}
-            onChange={onChange}
+            value={filter}
+            onChange={handleFilterChange}
           />
         </label>
-        <Btn type="button" onClick={onClick}>
+        <Btn type="button" onClick={clearFilterField}>
           Clear
         </Btn>
       </FilterWrapper>
@@ -22,8 +37,8 @@ export const Filter = ({ onChange, value, onClick }) => {
   );
 };
 
-Filter.propTypes = {
-  onChange: PropTypes.func.isRequired,
-  onClick: PropTypes.func.isRequired,
-  value: PropTypes.string,
-};
+// Filter.propTypes = {
+//   onChange: PropTypes.func.isRequired,
+//   onClick: PropTypes.func.isRequired,
+//   value: PropTypes.string,
+// };
